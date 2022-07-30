@@ -7,6 +7,7 @@ TagManager:
   - Verb
   - Stamp
   - Newspaper
+  - Ink
   layers:
   - Default
   - TransparentFX
