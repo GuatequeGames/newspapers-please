@@ -10,13 +10,22 @@ public class Drag : MonoBehaviour
     public Vector3 verbTransform;
     public bool isTrigger;
     public bool isVerbTrigger;
-
+    public bool isNewspaperTrigger;
+    public bool isStamp;
+    public GameObject stamp;
+    public Animator anim;
 
     public float speedRotation;
     float timerRotation;
     //ESTO SE EJECUTA UN SOLO FRAME CUANDO PULSAMOS
     private void OnMouseDown()//Cuando hago click con el boton izquierdo del raton
     {
+        if (gameObject.tag == "Stamp")
+        {
+            isStamp = true;
+            anim.SetBool("up", true);
+        }
+        else isStamp = false;
         if (!isVerbTrigger)
         {
             verbTransform = this.transform.position;
@@ -41,55 +50,74 @@ public class Drag : MonoBehaviour
         transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, distance)) + offset;
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.identity, speedRotation*timerRotation );
         timerRotation += Time.deltaTime;
-        this.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 10;
+        if (!isStamp)
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 10;
+        }
 
     }
     private void OnMouseUp()
     {
+        if (!isStamp)
+        {
         this.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
         timerRotation = 0;
-        if (!isTrigger)
-        {
-            transform.position = verbTransform;
-            if(GameManager.instance.verbList.Count == 1)
-            {
-                if (GameManager.instance.verbList[0] == verb)
-                {
-                    GameManager.instance.verbList.RemoveAt(0);
-                    this.GetComponent<Rigidbody2D>().isKinematic = false;
-                    
-                }
-            }
-        }
         
-        else if (isVerbTrigger)
-        {
-            if (GameManager.instance.verbList.Count == 0)
+            if (!isTrigger)
             {
-                GameManager.instance.EditNewsPaper(verb, this.gameObject);
-                GameManager.instance.verbList.Add(verb);
-                this.GetComponent<Rigidbody2D>().isKinematic = true;
+                transform.position = verbTransform;
+                if (GameManager.instance.verbList.Count == 1)
+                {
+                    if (GameManager.instance.verbList[0] == verb)
+                    {
+                        GameManager.instance.verbList.RemoveAt(0);
+                        this.GetComponent<Rigidbody2D>().isKinematic = false;
+
+                    }
+                }
             }
-            else if(GameManager.instance.verbList.Count == 1)
+
+            else if (isVerbTrigger)
             {
-                if (GameManager.instance.verbList[0] == verb)
+                if (GameManager.instance.verbList.Count == 0)
                 {
                     GameManager.instance.EditNewsPaper(verb, this.gameObject);
-                }
-                else
-                {
-                    GameManager.instance.verbObject.transform.position = GameManager.instance.verbObject.GetComponent<Drag>().verbTransform;
-                    GameManager.instance.verbObject.GetComponent<Rigidbody2D>().isKinematic = false;
-                    GameManager.instance.verbList.RemoveAt(0);
                     GameManager.instance.verbList.Add(verb);
-                    GameManager.instance.EditNewsPaper(verb, this.gameObject);
                     this.GetComponent<Rigidbody2D>().isKinematic = true;
+                }
+                else if (GameManager.instance.verbList.Count == 1)
+                {
+                    if (GameManager.instance.verbList[0] == verb)
+                    {
+                        GameManager.instance.EditNewsPaper(verb, this.gameObject);
+                    }
+                    else
+                    {
+                        GameManager.instance.verbObject.transform.position = GameManager.instance.verbObject.GetComponent<Drag>().verbTransform;
+                        GameManager.instance.verbObject.GetComponent<Rigidbody2D>().isKinematic = false;
+                        GameManager.instance.verbList.RemoveAt(0);
+                        GameManager.instance.verbList.Add(verb);
+                        GameManager.instance.EditNewsPaper(verb, this.gameObject);
+                        this.GetComponent<Rigidbody2D>().isKinematic = true;
 
 
+                    }
+                }
+                if (!isVerbTrigger)
+                {
+                    if (GameManager.instance.verbList.Count == 1)
+                    {
+                        if (GameManager.instance.verbList[0] == verb)
+                        {
+                            GameManager.instance.verbList.RemoveAt(0);
+                            this.GetComponent<Rigidbody2D>().isKinematic = false;
+
+                        }
+                    }
                 }
             }
-            if (!isVerbTrigger)
+            else
             {
                 if (GameManager.instance.verbList.Count == 1)
                 {
@@ -102,34 +130,60 @@ public class Drag : MonoBehaviour
                 }
             }
         }
-        else
+        if (gameObject.tag == "Stamp")
         {
-            if (GameManager.instance.verbList.Count == 1)
+            isStamp = false;
+            if (isNewspaperTrigger)
             {
-                if (GameManager.instance.verbList[0] == verb)
-                {
-                    GameManager.instance.verbList.RemoveAt(0);
-                    this.GetComponent<Rigidbody2D>().isKinematic = false;
-
-                }
+                anim.SetBool("putStamp", true);
+            }
+            else
+            {
+                anim.SetBool("up", false);
             }
         }
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        isTrigger = true;
-        if(collision.gameObject.tag == "Verb")
+        if (!isStamp)
         {
-            isVerbTrigger = true;
+            isTrigger = true;
+            if (collision.gameObject.tag == "Verb")
+            {
+                isVerbTrigger = true;
+            }
+        }
+        else
+        {
+            if (collision.gameObject.tag == "Newspaper")
+            {
+                isNewspaperTrigger = true;
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        isTrigger = false;
-        if (collision.gameObject.tag == "Verb")
+        if (!isStamp)
         {
-            isVerbTrigger = false;
+            isTrigger = false;
+            if (collision.gameObject.tag == "Verb")
+            {
+                isVerbTrigger = false;
+            }
         }
+        else
+        {
+            if (collision.gameObject.tag == "Newspaper")
+            {
+                isNewspaperTrigger = false;
+            }
+        }
+    }
+    public void putStamp()
+    {
+        stamp.SetActive(true);
+        stamp.transform.SetParent(null);
     }
 
 }
