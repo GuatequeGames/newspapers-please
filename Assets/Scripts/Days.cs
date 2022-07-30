@@ -20,7 +20,7 @@ public class Days : MonoBehaviour
 
     private void Update()
     {
-        if ( day == 1)
+        if (day == 1)
         {
             option[0] = "";
             option[1] = "";
