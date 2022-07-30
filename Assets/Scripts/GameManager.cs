@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,13 +12,22 @@ public class GameManager : MonoBehaviour
     int trueStat;
 
     public string verb;
-    public GameObject verbObject;
+    public TMP_InputField playerName, playerLastName;
+    public GameObject verbObject, topInk;
     public List<string> verbList = new List<string>();
     //int[] verb;
 
     private void Start()
     {
         instance = this;
+    }
+    private void Update()
+    {
+        if (playerName.text != "" && playerLastName.text != "")
+        {
+            topInk.SetActive(false);
+        }
+        else topInk.SetActive(true);
     }
 
     public void PublishNewsPaper(int _politics, int _money, int _true)
@@ -32,5 +42,7 @@ public class GameManager : MonoBehaviour
         verb = _verb;
         verbObject = _verbObject;
     }
+
+
 
 }
