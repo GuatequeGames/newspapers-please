@@ -12,6 +12,8 @@ public class Drag : MonoBehaviour
     public bool isVerbTrigger;
     public bool isNewspaperTrigger;
     public bool isStamp;
+    public bool isInkTrigger;
+    public bool canStamp;
     public GameObject stamp;
     public Animator anim;
 
@@ -24,6 +26,10 @@ public class Drag : MonoBehaviour
         {
             isStamp = true;
             anim.SetBool("up", true);
+            if (isInkTrigger)
+            {
+                canStamp = true;
+            }
         }
         else isStamp = false;
         if (!isVerbTrigger)
@@ -133,13 +139,14 @@ public class Drag : MonoBehaviour
         if (gameObject.tag == "Stamp")
         {
             isStamp = false;
-            if (isNewspaperTrigger)
+            if (isNewspaperTrigger && GameManager.instance.newspaperTrigger && canStamp)
             {
                 anim.SetBool("putStamp", true);
             }
             else
             {
                 anim.SetBool("up", false);
+                canStamp = false;
             }
         }
 
@@ -160,6 +167,10 @@ public class Drag : MonoBehaviour
             {
                 isNewspaperTrigger = true;
             }
+            if (collision.gameObject.tag == "Ink")
+            {
+                isInkTrigger = true;
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -177,6 +188,10 @@ public class Drag : MonoBehaviour
             if (collision.gameObject.tag == "Newspaper")
             {
                 isNewspaperTrigger = false;
+            }
+            if (collision.gameObject.tag == "Ink")
+            {
+                isInkTrigger = false;
             }
         }
     }

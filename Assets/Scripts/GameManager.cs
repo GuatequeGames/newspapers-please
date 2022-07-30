@@ -11,9 +11,10 @@ public class GameManager : MonoBehaviour
     int moneyStat;
     int trueStat;
 
+    public bool newspaperTrigger;
     public string verb;
     public TMP_InputField playerName, playerLastName;
-    public GameObject verbObject, topInk;
+    public GameObject verbObject, topInk, bottonInk;
     public List<string> verbList = new List<string>();
     //int[] verb;
 
@@ -26,8 +27,15 @@ public class GameManager : MonoBehaviour
         if (playerName.text != "" && playerLastName.text != "")
         {
             topInk.SetActive(false);
+            newspaperTrigger = true;
+            bottonInk.SetActive(true);
         }
-        else topInk.SetActive(true);
+        else
+        {
+            topInk.SetActive(true);
+            newspaperTrigger = false;
+            bottonInk.SetActive(false);
+        }
     }
 
     public void PublishNewsPaper(int _politics, int _money, int _true)
