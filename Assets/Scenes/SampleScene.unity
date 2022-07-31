@@ -3610,9 +3610,12 @@ MonoBehaviour:
   actualDay: 0
   matasellos: {fileID: 1494325782}
   sello: {fileID: 1353373298}
+  selloEndExit: {fileID: 720076416}
+  selloEndRestart: {fileID: 1043505677}
   positionMatasellos: {fileID: 507164486}
   positionName: {fileID: 1118903597}
   criticalEnding: 0
+  alternativeEnding: 0
 --- !u!4 &351890974
 Transform:
   m_ObjectHideFlags: 0

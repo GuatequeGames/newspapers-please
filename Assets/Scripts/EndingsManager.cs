@@ -28,11 +28,15 @@ public class EndingsManager : MonoBehaviour
     }
 
     // Gestionar finales en funcion de los valores de los niveles de las métricas
-    public void AlternativeEndings(){
-        if (elisaStrikes >= 2){
+    public void AlternativeEndings()
+    {
+        if (elisaStrikes >= 2)
+        {
             // Final Elisa es despedida: 2 noticias que perjudiquen a Elisa
             ElisaFiredEnding();
-        } else if (lastLevelCompleted){
+        }
+        else if (lastLevelCompleted)
+        {
             // Final completando todos los niveles: vida mediocre en el periódico
             MediocreEnding();
         }
