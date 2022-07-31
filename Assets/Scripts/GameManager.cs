@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     UpdateParameters updateParameters;
     EndingsManager endingsManager;
 
-    public bool criticalEnding=false;
+    public bool criticalEnding=false, alternativeEnding=false;
 
     private void Start()
     {
@@ -112,7 +112,12 @@ public class GameManager : MonoBehaviour
 
         endingsManager.CriticalEndings();
         matasellos.transform.position = positionMatasellos.position;
-        if (!criticalEnding) {
+        if (actualDay==7 && !criticalEnding){
+            alternativeEnding = true;
+            endingsManager.AlternativeEndings();
+            playerCompleteName.gameObject.SetActive(false);
+        }
+        else if (!criticalEnding) {
             actualDay++;
             days[actualDay].SetActive(true);
             playerCompleteName.gameObject.SetActive(true);
@@ -121,7 +126,9 @@ public class GameManager : MonoBehaviour
         } else {
             playerCompleteName.gameObject.SetActive(false);
         }
-      
+
+        
+
         
         if (GameManager.instance.verbList.Count > 0)
         {
