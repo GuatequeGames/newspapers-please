@@ -34,7 +34,7 @@ public class BasicInteraction : MonoBehaviour
         if(particles != null)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0;
+            mousePos.z = -1f;
             //Instantiate(particles,mousePos,Quaternion.identity,this.gameObject.transform);
             particles.transform.position = mousePos;
             particles.GetComponent<ParticleSystem>().Play();

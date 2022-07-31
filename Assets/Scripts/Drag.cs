@@ -25,12 +25,22 @@ public class Drag : MonoBehaviour
     public GameObject stamp;
     public Animator anim;
 
+    AudioSource audioSource;
+    public AudioClip audioInk;
+    public AudioClip audioWood;
+    public bool maderasound;
+
     public float speedRotation;
     float timerRotation;
 
     public GameObject photoBuena;
     public GameObject[] photosMalas;
     public GameObject photoNeutral;
+
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -196,7 +206,7 @@ public class Drag : MonoBehaviour
         {
             if (isNewspaperTrigger && GameManager.instance.newspaperTrigger && canStamp)
             {
-                anim.SetBool("putStamp", true);
+                anim.SetBool("putStamp", true); 
             }
             else if (isNewspaperTrigger && GameManager.instance.newspaperTrigger && canExitStamp)
             {
@@ -218,9 +228,28 @@ public class Drag : MonoBehaviour
                     isAssetTrigger = false;
                     transform.position = verbTransform;
                 }
+                if (isInkTrigger)
+                {
+                    maderasound = false;
+                }
+                else
+                {
+                    maderasound = true;
+                }
             }
         }
 
+    }
+    public void MatasellosVolumenControl()
+    {
+        if (maderasound)
+        {
+            audioSource.PlayOneShot(audioWood, 0.7f);
+        }
+        else
+        {
+            audioSource.PlayOneShot(audioInk, 1);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
