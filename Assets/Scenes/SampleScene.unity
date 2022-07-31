@@ -3540,7 +3540,7 @@ MonoBehaviour:
   playerCompleteName: {fileID: 1267692971}
   verbObject: {fileID: 0}
   anim: {fileID: 2042754554}
-  exitAnim: {fileID: 0}
+  exitAnim: {fileID: 723915566}
   verbList: []
   days:
   - {fileID: 790571498}
