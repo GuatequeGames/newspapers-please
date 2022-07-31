@@ -8,7 +8,7 @@ public class EndingsManager : MonoBehaviour
     int moneyLevel;
     int credibilityLevel;
     int pressureLevel;
-    public GameObject lowMoneyEnding,lowCredibilityEnding,highPressureEnding;
+    public GameObject lowMoneyEnding,lowCredibilityEnding,highPressureEnding,alwaysHelpElisa;
 
     // Gestionar finales en funcion de los valores de los niveles de las métricas
     public void CriticalEndings(){
@@ -29,9 +29,13 @@ public class EndingsManager : MonoBehaviour
 
     // Gestionar finales en funcion de los valores de los niveles de las métricas
     public void AlternativeEndings(){
-        if (elisaStrikes >= 2){
-            // Final Elisa es despedida: 2 noticias que perjudiquen a Elisa
-            ElisaFiredEnding();
+        // siempre la verdad
+        if GameManager.instance.options[]
+
+
+        // Ayudar siempre a rojas
+        else if (GameManager.instance.options[4] == "iglesia" && GameManager.instance.options[6] == "elisa" && GameManager.instance.options[7] == "oposicion"){
+            AlwaysHelpElisa();
         } else if (lastLevelCompleted){
             // Final completando todos los niveles: vida mediocre en el periódico
             MediocreEnding();
@@ -47,6 +51,10 @@ public class EndingsManager : MonoBehaviour
     }
     private void HighPressureEnding(){
         highPressureEnding.SetActive(true);
+        
+    }
+    private void AlwaysHelpElisa(){
+        alwaysHelpElisa.SetActive(true);
         
     }
 
