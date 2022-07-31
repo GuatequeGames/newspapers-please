@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI playerCompleteName;
     public GameObject verbObject;
     public Animator anim;
+    public Animator exitAnim;
     public List<string> verbList = new List<string>();
     //int[] verb;
 
@@ -56,6 +57,11 @@ public class GameManager : MonoBehaviour
             anim.SetBool("moveUp", false);
         }
         playerCompleteName.text = "Fdo.: " + playerName.text + " " + playerLastName.text;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            exitAnim.SetBool("up", !exitAnim.GetBool("up"));
+        }
     }
 
     public void PublishNewsPaper(int _politics, int _money, int _true)

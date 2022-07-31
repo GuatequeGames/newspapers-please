@@ -11,6 +11,7 @@ TagManager:
   - Scene
   - Asset
   - Answer
+  - ExitInk
   layers:
   - Default
   - TransparentFX

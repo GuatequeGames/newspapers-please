@@ -15,6 +15,8 @@ public class Drag : MonoBehaviour
     public bool isInkTrigger;
     public bool isSceneTrigger;
     public bool isAssetTrigger;
+    public bool isInkExit;
+    public bool canExitStamp;
     public bool canStamp;
     public GameObject stamp;
     public Animator anim;
@@ -57,6 +59,10 @@ public class Drag : MonoBehaviour
             if (isInkTrigger)
             {
                 canStamp = true;
+            }
+            if (isInkExit)
+            {
+                canExitStamp = true;
             }
             verbTransform = this.transform.position;
             
@@ -188,6 +194,11 @@ public class Drag : MonoBehaviour
             {
                 anim.SetBool("putStamp", true);
             }
+            else if (isNewspaperTrigger && GameManager.instance.newspaperTrigger && canExitStamp)
+            {
+                Debug.Log("fin");
+                Application.Quit();
+            }
             else
             {
                 isStamp = false;
@@ -227,6 +238,10 @@ public class Drag : MonoBehaviour
             {
                 isInkTrigger = true;
             }
+            if (collision.gameObject.tag == "ExitInk")
+            {
+                isInkExit = true;
+            }
             if (collision.gameObject.tag == "Scene")
             {
                 isSceneTrigger = true;
@@ -260,6 +275,10 @@ public class Drag : MonoBehaviour
             if (collision.gameObject.tag == "Ink")
             {
                 isInkTrigger = false;
+            }
+            if (collision.gameObject.tag == "ExitInk")
+            {
+                isInkExit = false;
             }
             if (collision.gameObject.tag == "Scene")
             {
