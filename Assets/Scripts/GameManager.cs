@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public int politicsStat=6;
+    public int politicsStat=3;
     public int moneyStat=2;
     public int trueStat=5;
     public int elisaStrikes=0;

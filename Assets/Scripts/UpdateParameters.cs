@@ -84,7 +84,7 @@ public class UpdateParameters : MonoBehaviour
 
             if (GameManager.instance.options[5] == null)
             {
-                GameManager.instance.PublishNewsPaper(1, 1, 0); //Politica, dinero, vericidad
+                GameManager.instance.PublishNewsPaper(0, 1, 0); //Politica, dinero, vericidad
                 GameManager.instance.verdades ++;
             }
             else if (GameManager.instance.options[5] == "personas")
@@ -127,7 +127,7 @@ public class UpdateParameters : MonoBehaviour
             //elisa sola
             if (GameManager.instance.options[7] == null)
             {
-                GameManager.instance.PublishNewsPaper(1, 2, 2); //Politica, dinero, vericidad
+                GameManager.instance.PublishNewsPaper(0, 2, 2); //Politica, dinero, vericidad
                 GameManager.instance.verdades ++;
 
             }
@@ -150,7 +150,7 @@ public class UpdateParameters : MonoBehaviour
             //complot
             if (GameManager.instance.options[7] == null)
             {
-                GameManager.instance.PublishNewsPaper(7, 2, 3); //Politica, dinero, vericidad
+                GameManager.instance.PublishNewsPaper(2, 2, 3); //Politica, dinero, vericidad
                 GameManager.instance.verdades ++;
 
             }
