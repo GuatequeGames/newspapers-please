@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class dia3manager : MonoBehaviour
 {
+    
     string opcionAnterior;
     public GameObject interactablesLorena;
     public GameObject interactablesConstructora;

@@ -98,7 +98,11 @@ public class GameManager : MonoBehaviour
         playerCompleteName.gameObject.SetActive(true);
         playerLastName.gameObject.SetActive(false);
         playerName.gameObject.SetActive(false);
-
+        
+        if (GameManager.instance.verbList.Count > 0)
+        {
+            verbList.RemoveAt(0);
+        }
         while (blackScreen.GetComponent<SpriteRenderer>().color.a > 0)
         {
             Color tmp = blackScreen.GetComponent<SpriteRenderer>().color;
