@@ -1010,6 +1010,8 @@ MonoBehaviour:
   isInkTrigger: 0
   isSceneTrigger: 0
   isAssetTrigger: 0
+  isInkExit: 0
+  canExitStamp: 0
   canStamp: 0
   stamp: {fileID: 0}
   anim: {fileID: 0}
@@ -2110,6 +2112,8 @@ MonoBehaviour:
   isInkTrigger: 0
   isSceneTrigger: 0
   isAssetTrigger: 0
+  isInkExit: 0
+  canExitStamp: 0
   canStamp: 0
   stamp: {fileID: 0}
   anim: {fileID: 0}
@@ -2921,6 +2925,8 @@ MonoBehaviour:
   isInkTrigger: 0
   isSceneTrigger: 0
   isAssetTrigger: 0
+  isInkExit: 0
+  canExitStamp: 0
   canStamp: 0
   stamp: {fileID: 0}
   anim: {fileID: 0}
@@ -3534,7 +3540,7 @@ MonoBehaviour:
   playerCompleteName: {fileID: 1267692971}
   verbObject: {fileID: 0}
   anim: {fileID: 2042754554}
-  exitAnim: {fileID: 723915566}
+  exitAnim: {fileID: 0}
   verbList: []
   days:
   - {fileID: 790571498}
@@ -9428,7 +9434,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919019181}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.17, y: 4.56, z: -0.13559474}
+  m_LocalPosition: {x: -2.7936153, y: 0.75401103, z: -0.13559474}
   m_LocalScale: {x: 0.67859614, y: 0.67859614, z: 0.67859614}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10064,7 +10070,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &997663483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10765,7 +10771,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1093710582
 GameObject:
@@ -15759,7 +15765,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1657562925
 GameObject:
@@ -16364,6 +16370,8 @@ MonoBehaviour:
   isInkTrigger: 0
   isSceneTrigger: 0
   isAssetTrigger: 0
+  isInkExit: 0
+  canExitStamp: 0
   canStamp: 0
   stamp: {fileID: 0}
   anim: {fileID: 0}
@@ -19797,6 +19805,8 @@ MonoBehaviour:
   isInkTrigger: 0
   isSceneTrigger: 0
   isAssetTrigger: 0
+  isInkExit: 0
+  canExitStamp: 0
   canStamp: 0
   stamp: {fileID: 0}
   anim: {fileID: 0}
