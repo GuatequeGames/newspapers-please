@@ -8,9 +8,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    int politicsStat;
-    int moneyStat;
-    int trueStat;
+    public int politicsStat;
+    public int moneyStat;
+    public int trueStat;
+    public int elisaStrikes;
 
     public bool newspaperTrigger;
     public bool resetMatasellos;
@@ -28,18 +29,19 @@ public class GameManager : MonoBehaviour
     public int actualDay = 0;
 
 
-
-
     public GameObject matasellos;
     public GameObject sello;
     public Transform positionMatasellos;
     public Transform positionName;
+    UpdateParameters updateParameters;
 
     private void Start()
     {
         days[actualDay].SetActive(true);
         options = new string[days.Length];
         instance = this;
+        updateParameters = GetComponent<UpdateParameters>();
+
     }
     private void Update()
     {
@@ -92,6 +94,12 @@ public class GameManager : MonoBehaviour
         sello.SetActive(false);
         sello.transform.SetParent(matasellos.transform);
         sello.transform.localPosition = new Vector3(0, -1, 0);
+
+        updateParameters.UpdateStats();
+        Debug.Log(politicsStat+""+
+                moneyStat+""+
+                trueStat+""+
+                elisaStrikes);
         actualDay++;
         matasellos.transform.position = positionMatasellos.position;
         days[actualDay].SetActive(true);
@@ -112,9 +120,6 @@ public class GameManager : MonoBehaviour
         }
         
     }
-
-
-
 
 
 }

@@ -13,7 +13,6 @@ public class dia3manager : MonoBehaviour
     void Start()
     {
         opcionAnterior = GameManager.instance.options[2];
-        Debug.Log(opcionAnterior);
         if (opcionAnterior == null)
         {
             interactablesLorena.SetActive(true);

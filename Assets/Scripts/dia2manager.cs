@@ -11,7 +11,6 @@ public class dia2manager : MonoBehaviour
     void Start()
     {
         opcionAnterior = GameManager.instance.options[1];
-        Debug.Log(opcionAnterior);
         if (opcionAnterior == null)
         {
             interactablesAmiga.SetActive(true);

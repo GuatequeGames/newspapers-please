@@ -67,9 +67,9 @@ public class Drag : MonoBehaviour
             verbTransform = this.transform.position;
         }
         Vector2 mousePos = Input.mousePosition; //Coordenadas de pantalla
-        //Estoy cogiendo la distancia que hay desde el gameObject a la cámara
+        //Estoy cogiendo la distancia que hay desde el gameObject a la cï¿½mara
         float distance = Camera.main.WorldToScreenPoint(transform.position).z; //WorldToScreenPoint devuelve (cordenada pantalla, cordenada pantalla, distancia de pantalla) ejemplo en el extremo de la pantalla (1920,1080,23pixeles)
-        //Calculo en coordenadas de mundo dejuego (Dela escena de Unity) la posicion del ratón
+        //Calculo en coordenadas de mundo dejuego (Dela escena de Unity) la posicion del ratï¿½n
         //TENIENDO EN CUENTA LA DESITANCIA Q LA QUE ESTA EL GAMEOBJECT
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, distance));
         //el oofset lo calculo para que a la hora de pinchar sobre el bojeto, el sguimiento del objeto al cursor del raton
@@ -142,7 +142,6 @@ public class Drag : MonoBehaviour
                         GameManager.instance.verbList.Add(verb);
                         GameManager.instance.EditNewsPaper(verb, this.gameObject);
                         this.GetComponent<Rigidbody2D>().isKinematic = true;
-                        Debug.Log("Sale aqui");
                         StopAllCoroutines();
 
                         StartCoroutine(fadeToNotice());
@@ -159,7 +158,6 @@ public class Drag : MonoBehaviour
                             GameManager.instance.verbList.RemoveAt(0);
                             isTrigger = true;
                             this.GetComponent<Rigidbody2D>().isKinematic = false;
-                            Debug.Log("Sale aqui2");
                             StopAllCoroutines();
 
                             StartCoroutine(fadeToNeutral());
@@ -179,7 +177,6 @@ public class Drag : MonoBehaviour
                         this.GetComponent<Rigidbody2D>().isKinematic = false;
                         StopAllCoroutines();
                         StartCoroutine(fadeToNeutral());
-                        Debug.Log("Sale aqui3");
 
                     }
                 }
@@ -287,7 +284,6 @@ public class Drag : MonoBehaviour
             GameManager.instance.options[GameManager.instance.actualDay] = null;
         }
         
-        Debug.Log(GameManager.instance.options[GameManager.instance.actualDay]);
         GameManager.instance.goToNextDay();
     }
 
