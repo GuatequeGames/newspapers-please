@@ -13,6 +13,7 @@ public class UpdateParameters : MonoBehaviour
             if (GameManager.instance.options[1]==null)
             {
                 GameManager.instance.PublishNewsPaper(0, -1, 1); //Politica, dinero, vericidad
+                GameManager.instance.verdades ++;
             }
             else if (GameManager.instance.options[1] == "amante")
             {
@@ -26,6 +27,7 @@ public class UpdateParameters : MonoBehaviour
             if (GameManager.instance.options[2] == null)
             {
                 GameManager.instance.PublishNewsPaper(2, 2, 1); //Politica, dinero, vericidad
+                GameManager.instance.verdades ++;
             }
             else if (GameManager.instance.options[2] == "constructora")
             {
@@ -44,6 +46,7 @@ public class UpdateParameters : MonoBehaviour
             if (GameManager.instance.options[3] == null)
             {
                 GameManager.instance.PublishNewsPaper(1, -2, 1); //Politica, dinero, vericidad
+                GameManager.instance.verdades ++;
             }
             else if (GameManager.instance.options[3] == "investigadores")
             {
@@ -61,6 +64,7 @@ public class UpdateParameters : MonoBehaviour
             if (GameManager.instance.options[4] == null)
             {
                 GameManager.instance.PublishNewsPaper(0, 1, 1); //Politica, dinero, vericidad
+                GameManager.instance.verdades ++;
                 GameManager.instance.elisaStrikes++; 
             }
             else if (GameManager.instance.options[4] == "elisa")
@@ -71,6 +75,7 @@ public class UpdateParameters : MonoBehaviour
             else if (GameManager.instance.options[4] == "iglesia")
             {
                 GameManager.instance.PublishNewsPaper(2, 1, -1); //Politica, dinero, vericidad
+                GameManager.instance.ayudasRojas ++;
             }
         }
         // Quinto d�a: la felicidad
@@ -80,6 +85,7 @@ public class UpdateParameters : MonoBehaviour
             if (GameManager.instance.options[5] == null)
             {
                 GameManager.instance.PublishNewsPaper(1, 1, 0); //Politica, dinero, vericidad
+                GameManager.instance.verdades ++;
             }
             else if (GameManager.instance.options[5] == "personas")
             {
@@ -98,6 +104,7 @@ public class UpdateParameters : MonoBehaviour
             {
                 GameManager.instance.PublishNewsPaper(1, 0, 1); //Politica, dinero, vericidad
                 GameManager.instance.elisaStrikes++;
+                GameManager.instance.verdades ++;
 
             }
             //elisa + vice
@@ -110,37 +117,41 @@ public class UpdateParameters : MonoBehaviour
             else if (GameManager.instance.options[6] == "elisa")
             {
                 GameManager.instance.PublishNewsPaper(2, -1, -1); //Politica, dinero, vericidad
+                GameManager.instance.ayudasRojas ++;
             }
         }
         
         // Septimo d�a: elisa sigue
-        if (GameManager.instance.actualDay == 7)
+        if (GameManager.instance.actualDay == 7 && GameManager.instance.elisaStrikes<3)
         {
             //elisa sola
             if (GameManager.instance.options[7] == null)
             {
                 GameManager.instance.PublishNewsPaper(1, 2, 2); //Politica, dinero, vericidad
+                GameManager.instance.verdades ++;
 
             }
             //oposicion
             else if (GameManager.instance.options[7] == "oposicion")
             {
                 GameManager.instance.PublishNewsPaper(2, 1, -1); //Politica, dinero, vericidad
-                GameManager.instance.elisaStrikes += 3;
+                GameManager.instance.ayudasRojas ++;
             }
             //elisa
             else if (GameManager.instance.options[7] == "elisa")
             {
                 GameManager.instance.PublishNewsPaper(2, -1, -1); //Politica, dinero, vericidad
+                GameManager.instance.elisaStrikes += 3;
             }
         }
         // Septimo d�a: elisa fuera
-        if (GameManager.instance.actualDay == 7)
+        else if (GameManager.instance.actualDay == 7  && GameManager.instance.elisaStrikes>=3)
         {
             //complot
             if (GameManager.instance.options[7] == null)
             {
                 GameManager.instance.PublishNewsPaper(7, 2, 3); //Politica, dinero, vericidad
+                GameManager.instance.verdades ++;
 
             }
             //planes

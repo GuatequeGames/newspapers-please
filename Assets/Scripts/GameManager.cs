@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
     EndingsManager endingsManager;
 
     public bool criticalEnding=false, alternativeEnding=false;
+    public int ayudasRojas;
+    public int verdades;
 
     private void Start()
     {

@@ -8,7 +8,7 @@ public class EndingsManager : MonoBehaviour
     int moneyLevel;
     int credibilityLevel;
     int pressureLevel;
-    public GameObject lowMoneyEnding,lowCredibilityEnding,highPressureEnding,alwaysHelpElisa;
+    public GameObject lowMoneyEnding,lowCredibilityEnding,highPressureEnding,alwaysHelpElisa, trueEnding,rojasComplot,outRojas,neutralEnding;
 
     // Gestionar finales en funcion de los valores de los niveles de las métricas
     public void CriticalEndings(){
@@ -30,16 +30,11 @@ public class EndingsManager : MonoBehaviour
     // Gestionar finales en funcion de los valores de los niveles de las métricas
     public void AlternativeEndings(){
         // siempre la verdad
-        if GameManager.instance.options[]
-
-
-        // Ayudar siempre a rojas
-        else if (GameManager.instance.options[4] == "iglesia" && GameManager.instance.options[6] == "elisa" && GameManager.instance.options[7] == "oposicion"){
-            AlwaysHelpElisa();
-        } else if (lastLevelCompleted){
-            // Final completando todos los niveles: vida mediocre en el periódico
-            MediocreEnding();
-        }
+        if (GameManager.instance.verdades >=7) TrueEnding();
+        else if (GameManager.instance.ayudasRojas >=3) AlwaysHelpElisa();
+        else if (GameManager.instance.options[7]=="complot") RojasComplot();
+        else if (GameManager.instance.elisaStrikes>=3) OutRojas();
+        else  NeutralEnding();
     }
 
     private void LowMoneyEnding(){
@@ -55,6 +50,22 @@ public class EndingsManager : MonoBehaviour
     }
     private void AlwaysHelpElisa(){
         alwaysHelpElisa.SetActive(true);
+        
+    }
+    private void TrueEnding(){
+        trueEnding.SetActive(true);
+        
+    }
+    private void RojasComplot(){
+        rojasComplot.SetActive(true);
+        
+    }
+    private void OutRojas(){
+        outRojas.SetActive(true);
+        
+    }
+    private void NeutralEnding(){
+        neutralEnding.SetActive(true);
         
     }
 
