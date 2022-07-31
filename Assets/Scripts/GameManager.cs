@@ -95,6 +95,9 @@ public class GameManager : MonoBehaviour
         actualDay++;
         matasellos.transform.position = positionMatasellos.position;
         days[actualDay].SetActive(true);
+        playerCompleteName.gameObject.SetActive(true);
+        playerLastName.gameObject.SetActive(false);
+        playerName.gameObject.SetActive(false);
 
         while (blackScreen.GetComponent<SpriteRenderer>().color.a > 0)
         {
@@ -103,7 +106,7 @@ public class GameManager : MonoBehaviour
             blackScreen.GetComponent<SpriteRenderer>().color = tmp;
             yield return null;
         }
-        playerCompleteName.gameObject.SetActive(true);
+        
     }
 
 
