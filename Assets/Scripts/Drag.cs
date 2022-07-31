@@ -13,12 +13,40 @@ public class Drag : MonoBehaviour
     public bool isNewspaperTrigger;
     public bool isStamp;
     public bool isInkTrigger;
+    public bool isSceneTrigger;
+    public bool isAssetTrigger;
     public bool canStamp;
     public GameObject stamp;
     public Animator anim;
 
     public float speedRotation;
     float timerRotation;
+
+    public GameObject photoBuena;
+    public GameObject[] photosMalas;
+    public GameObject photoNeutral;
+
+    private void Start()
+    {
+        isSceneTrigger = true;
+    }
+    private void Update()
+    {
+        if (isStamp)
+        {
+            if (GameManager.instance.resetMatasellos)
+            {
+                
+                anim.SetBool("up", false);
+                anim.SetBool("putStamp", false);
+                anim.SetTrigger("reset");
+                isStamp = false;
+                isNewspaperTrigger = false;
+                GameManager.instance.resetMatasellos = false;
+            }
+        }
+    }
+
     //ESTO SE EJECUTA UN SOLO FRAME CUANDO PULSAMOS
     private void OnMouseDown()//Cuando hago click con el boton izquierdo del raton
     {
@@ -30,6 +58,8 @@ public class Drag : MonoBehaviour
             {
                 canStamp = true;
             }
+            verbTransform = this.transform.position;
+            
         }
         else isStamp = false;
         if (!isVerbTrigger)
@@ -70,7 +100,7 @@ public class Drag : MonoBehaviour
 
         timerRotation = 0;
         
-            if (!isTrigger)
+            if (!isTrigger && !isVerbTrigger)
             {
                 transform.position = verbTransform;
                 if (GameManager.instance.verbList.Count == 1)
@@ -79,18 +109,24 @@ public class Drag : MonoBehaviour
                     {
                         GameManager.instance.verbList.RemoveAt(0);
                         this.GetComponent<Rigidbody2D>().isKinematic = false;
+                        StopAllCoroutines();
+
+                        StartCoroutine(fadeToNeutral());
 
                     }
                 }
             }
-
             else if (isVerbTrigger)
             {
                 if (GameManager.instance.verbList.Count == 0)
                 {
                     GameManager.instance.EditNewsPaper(verb, this.gameObject);
                     GameManager.instance.verbList.Add(verb);
+
                     this.GetComponent<Rigidbody2D>().isKinematic = true;
+                    StopAllCoroutines();
+
+                    StartCoroutine(fadeToNotice());
                 }
                 else if (GameManager.instance.verbList.Count == 1)
                 {
@@ -106,6 +142,10 @@ public class Drag : MonoBehaviour
                         GameManager.instance.verbList.Add(verb);
                         GameManager.instance.EditNewsPaper(verb, this.gameObject);
                         this.GetComponent<Rigidbody2D>().isKinematic = true;
+                        Debug.Log("Sale aqui");
+                        StopAllCoroutines();
+
+                        StartCoroutine(fadeToNotice());
 
 
                     }
@@ -117,7 +157,13 @@ public class Drag : MonoBehaviour
                         if (GameManager.instance.verbList[0] == verb)
                         {
                             GameManager.instance.verbList.RemoveAt(0);
+                            isTrigger = true;
                             this.GetComponent<Rigidbody2D>().isKinematic = false;
+                            Debug.Log("Sale aqui2");
+                            StopAllCoroutines();
+
+                            StartCoroutine(fadeToNeutral());
+
 
                         }
                     }
@@ -131,6 +177,9 @@ public class Drag : MonoBehaviour
                     {
                         GameManager.instance.verbList.RemoveAt(0);
                         this.GetComponent<Rigidbody2D>().isKinematic = false;
+                        StopAllCoroutines();
+                        StartCoroutine(fadeToNeutral());
+                        Debug.Log("Sale aqui3");
 
                     }
                 }
@@ -138,15 +187,21 @@ public class Drag : MonoBehaviour
         }
         if (gameObject.tag == "Stamp")
         {
-            isStamp = false;
             if (isNewspaperTrigger && GameManager.instance.newspaperTrigger && canStamp)
             {
                 anim.SetBool("putStamp", true);
             }
             else
             {
+                isStamp = false;
                 anim.SetBool("up", false);
                 canStamp = false;
+                if(!isSceneTrigger || isAssetTrigger)
+                {
+                    isSceneTrigger = true;
+                    isAssetTrigger = false;
+                    transform.position = verbTransform;
+                }
             }
         }
 
@@ -155,10 +210,14 @@ public class Drag : MonoBehaviour
     {
         if (!isStamp)
         {
-            isTrigger = true;
+            //isTrigger = true;
             if (collision.gameObject.tag == "Verb")
             {
                 isVerbTrigger = true;
+            }
+            if (collision.gameObject.tag == "Answer")
+            {
+                isTrigger = true;
             }
         }
         else
@@ -171,16 +230,28 @@ public class Drag : MonoBehaviour
             {
                 isInkTrigger = true;
             }
+            if (collision.gameObject.tag == "Scene")
+            {
+                isSceneTrigger = true;
+            }
+            if (collision.gameObject.tag == "Asset")
+            {
+                isAssetTrigger = true;
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (!isStamp)
         {
-            isTrigger = false;
+            //isTrigger = false;
             if (collision.gameObject.tag == "Verb")
             {
                 isVerbTrigger = false;
+            }
+            if (collision.gameObject.tag == "Answer")
+            {
+                isTrigger = false;
             }
         }
         else
@@ -193,12 +264,80 @@ public class Drag : MonoBehaviour
             {
                 isInkTrigger = false;
             }
+            if (collision.gameObject.tag == "Scene")
+            {
+                isSceneTrigger = false;
+            }
+            if (collision.gameObject.tag == "Asset")
+            {
+                isAssetTrigger = false;
+            }
         }
     }
     public void putStamp()
     {
         stamp.SetActive(true);
         stamp.transform.SetParent(null);
+
+        if (GameManager.instance.verbList.Count > 0)
+        {
+            GameManager.instance.options[GameManager.instance.actualDay] = GameManager.instance.verbList[0];
+        } else
+        {
+            GameManager.instance.options[GameManager.instance.actualDay] = null;
+        }
+        
+        Debug.Log(GameManager.instance.options[GameManager.instance.actualDay]);
+        GameManager.instance.goToNextDay();
     }
 
+
+    IEnumerator fadeToNotice()
+    {
+        yield return new WaitForSeconds(0.3f);
+        for(int i = 0; i<photosMalas.Length; i++)
+        {
+            while (photosMalas[i].GetComponent<SpriteRenderer>().color.a > 0)
+            {
+                Color tmp = photosMalas[i].GetComponent<SpriteRenderer>().color;
+                tmp.a -= 0.006f;
+                photosMalas[i].GetComponent<SpriteRenderer>().color = tmp;
+                yield return null;
+            }
+        }
+        
+
+        while (photoBuena.GetComponent<SpriteRenderer>().color.a < 1)
+        {
+            Color tmp = photoBuena.GetComponent<SpriteRenderer>().color;
+            tmp.a += 0.006f;
+            photoBuena.GetComponent<SpriteRenderer>().color = tmp;
+            yield return null;
+        }
+    }
+
+    IEnumerator fadeToNeutral()
+    {
+        yield return new WaitForSeconds(0.3f);
+        for (int i = 0; i < photosMalas.Length; i++)
+        {
+            while (photoBuena.GetComponent<SpriteRenderer>().color.a >0)
+            {
+                Color tmp = photoBuena.GetComponent<SpriteRenderer>().color;
+                tmp.a -= 0.006f;
+                photoBuena.GetComponent<SpriteRenderer>().color = tmp;
+                yield return null;
+            }
+
+        }
+
+
+        while (photoNeutral.GetComponent<SpriteRenderer>().color.a < 1)
+        {
+            Color tmp = photoNeutral.GetComponent<SpriteRenderer>().color;
+            tmp.a += 0.006f;
+            photoNeutral.GetComponent<SpriteRenderer>().color = tmp;
+            yield return null;
+        }
+    }
 }

@@ -8,6 +8,8 @@ public class Days : MonoBehaviour
     int optionSelect;
     string[] option = new string[3];
 
+
+
     private void Start()
     {
         day = 1;
@@ -41,8 +43,10 @@ public class Days : MonoBehaviour
                 GameManager.instance.PublishNewsPaper(0, 0, 0); //Politica, dinero, vericidad
             }
         }
+
         if (day == 2)
         {
+            
             option[0] = "";
             option[1] = "";
             option[2] = "";

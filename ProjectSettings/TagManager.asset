@@ -8,6 +8,9 @@ TagManager:
   - Stamp
   - Newspaper
   - Ink
+  - Scene
+  - Asset
+  - Answer
   layers:
   - Default
   - TransparentFX
