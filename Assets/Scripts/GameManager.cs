@@ -8,10 +8,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public int politicsStat;
-    public int moneyStat;
-    public int trueStat;
-    public int elisaStrikes;
+    public int politicsStat=6;
+    public int moneyStat=2;
+    public int trueStat=5;
+    public int elisaStrikes=0;
 
     public bool newspaperTrigger;
     public bool resetMatasellos;
@@ -35,6 +35,9 @@ public class GameManager : MonoBehaviour
     public Transform positionMatasellos;
     public Transform positionName;
     UpdateParameters updateParameters;
+    EndingsManager endingsManager;
+
+    public bool criticalEnding=false;
 
     private void Start()
     {
@@ -42,6 +45,7 @@ public class GameManager : MonoBehaviour
         options = new string[days.Length];
         instance = this;
         updateParameters = GetComponent<UpdateParameters>();
+        endingsManager = GetComponent<EndingsManager>();
 
     }
     private void Update()
@@ -79,7 +83,6 @@ public class GameManager : MonoBehaviour
 
     public void goToNextDay()
     {
-
         StartCoroutine(fadeToNextDay());
     }
     
@@ -102,21 +105,29 @@ public class GameManager : MonoBehaviour
         sello.transform.localPosition = new Vector3(0, -1, 0);
 
         updateParameters.UpdateStats();
-        Debug.Log(politicsStat+""+
-                moneyStat+""+
-                trueStat+""+
+        Debug.Log(politicsStat+" "+
+                moneyStat+" "+
+                trueStat+" "+
                 elisaStrikes);
-        actualDay++;
+
+        endingsManager.CriticalEndings();
         matasellos.transform.position = positionMatasellos.position;
-        days[actualDay].SetActive(true);
-        playerCompleteName.gameObject.SetActive(true);
-        playerLastName.gameObject.SetActive(false);
-        playerName.gameObject.SetActive(false);
+        if (!criticalEnding) {
+            actualDay++;
+            days[actualDay].SetActive(true);
+            playerCompleteName.gameObject.SetActive(true);
+            playerLastName.gameObject.SetActive(false);
+            playerName.gameObject.SetActive(false);
+        } else {
+            playerCompleteName.gameObject.SetActive(false);
+        }
+      
         
         if (GameManager.instance.verbList.Count > 0)
         {
             verbList.RemoveAt(0);
         }
+
         while (blackScreen.GetComponent<SpriteRenderer>().color.a > 0)
         {
             Color tmp = blackScreen.GetComponent<SpriteRenderer>().color;
