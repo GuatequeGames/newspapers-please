@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject matasellos;
     public GameObject sello;
+    public GameObject selloEndExit;
+    public GameObject selloEndRestart;
     public Transform positionMatasellos;
     public Transform positionName;
     UpdateParameters updateParameters;
@@ -62,9 +64,19 @@ public class GameManager : MonoBehaviour
         }
         playerCompleteName.text = "Fdo.: " + playerName.text + " " + playerLastName.text;
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (criticalEnding || alternativeEnding)
         {
-            exitAnim.SetBool("up", !exitAnim.GetBool("up"));
+            anim.gameObject.SetActive(false);
+            exitAnim.gameObject.SetActive(false);
+            selloEndExit.SetActive(true);
+            selloEndRestart.SetActive(true);
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                exitAnim.SetBool("up", !exitAnim.GetBool("up"));
+            }
         }
     }
 
