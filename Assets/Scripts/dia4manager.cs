@@ -11,8 +11,8 @@ public class dia4manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        opcionAnterior = GameManager.instance.options[2];
-        Debug.Log(opcionAnterior);
+        opcionAnterior = GameManager.instance.options[3];
+
         if (opcionAnterior == null)
         {
             interactablesNadie.SetActive(true);
