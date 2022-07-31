@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Drag : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class Drag : MonoBehaviour
     public bool isInkExit;
     public bool canExitStamp;
     public bool canStamp;
+    public bool canRestartStamp;
+    public bool isEndExitTrigger;
+    public bool isEndRestartTrigger;
     public GameObject stamp;
     public Animator anim;
 
@@ -60,7 +64,7 @@ public class Drag : MonoBehaviour
             {
                 canStamp = true;
             }
-            if (isInkExit)
+            if (isInkExit || isEndExitTrigger)
             {
                 canExitStamp = true;
             }
@@ -199,6 +203,10 @@ public class Drag : MonoBehaviour
                 Debug.Log("fin");
                 Application.Quit();
             }
+            else if (isNewspaperTrigger && GameManager.instance.newspaperTrigger && canRestartStamp)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
             else
             {
                 isStamp = false;
@@ -250,6 +258,14 @@ public class Drag : MonoBehaviour
             {
                 isAssetTrigger = true;
             }
+            if (collision.gameObject.tag == "EndExitInk")
+            {
+                isEndExitTrigger = true;
+            }
+            if (collision.gameObject.tag == "EndRestartInk")
+            {
+                isEndRestartTrigger = true;
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -287,6 +303,14 @@ public class Drag : MonoBehaviour
             if (collision.gameObject.tag == "Asset")
             {
                 isAssetTrigger = false;
+            }
+            if (collision.gameObject.tag == "EndExitInk")
+            {
+                isEndExitTrigger = false;
+            }
+            if (collision.gameObject.tag == "EndRestartInk")
+            {
+                isEndRestartTrigger = false;
             }
         }
     }

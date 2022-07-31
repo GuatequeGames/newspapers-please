@@ -12,6 +12,8 @@ TagManager:
   - Asset
   - Answer
   - ExitInk
+  - EndExitInk
+  - EndRestartInk
   layers:
   - Default
   - TransparentFX
